@@ -9,9 +9,11 @@ const io = require("socket.io")(server, {
   },
 });
 
-app.use(cors());
+const env = require("dotenv").config();
 
-const PORT = 8080;
+console.log(process.env.PORT);
+
+app.use(cors());
 
 app.get("/hello", (req, res) => {
   res.send("hello from the other siiiiiiide");
@@ -33,4 +35,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+server.listen(process.env.PORT || 8080, () =>
+  console.log(`Server is running on port ${process.env.PORT || 8080}`)
+);
